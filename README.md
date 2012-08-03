@@ -47,8 +47,8 @@ For status change notifications working you need:
 
 * Libnotify installed
 * D-Bus session running
-* **notifications.el** (included in GNU Emacs 24, which is not yet released,
-    if you using older version - take notifications.el
+* **notifications.el** (included in GNU Emacs 24.1, if you using older version
+    - take notifications.el
     [here](http://bazaar.launchpad.net/~vcs-imports/emacs/trunk/annotate/head%3A/lisp/notifications.el))
 
 To activate pomodoro.el simply put it in your load path. For example if you
