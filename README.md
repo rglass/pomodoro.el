@@ -62,11 +62,10 @@ recommended), use this recipe:
 
 ``` lisp
 (:name pomodoro
-       :type git
-       :url "https://github.com/vderyagin/pomodoro.el.git"
-       :post-init (lambda ()
-                    (setq pomodoro-icon
-                          (expand-file-name "pomodoro/pomodoro_technique.png" el-get-dir))))
+       :type github
+       :pkgname "vderyagin/pomodoro.el"
+       :post-init (setq pomodoro-icon
+                        (expand-file-name "pomodoro/pomodoro_technique.png" el-get-dir)))
 ```
 
 ## Customizing ##
