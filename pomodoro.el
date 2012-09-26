@@ -43,6 +43,8 @@
 (defvar pomodoro-icon notifications-application-icon
   "Icon used for notification")
 
+(defvar pomodoro-paused nil)
+
 (defvar pomodoro-display-string "")
 (defvar pomodoro-minute)
 (defvar pomodoro-set)
@@ -190,5 +192,4 @@ It takes care of updating the modeline"
 
 (provide 'pomodoro)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; pomodoro.el ends here
