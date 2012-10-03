@@ -86,7 +86,7 @@
               pomodoro-state 'work)
         (pomodoro-update-modeline)
         (pomodoro-status))
-      (when (y-or-n-p "Pomodoro isn't running. Start it?")
+      (when (y-or-n-p "Pomodoro isn't running. Start it? ")
         (pomodoro))))
 
 (defun pomodoro-skip-forward ()
@@ -104,7 +104,7 @@
         (cancel-timer pomodoro-timer)
         (delq 'pomodoro-display-string global-mode-string)
         (pomodoro-status))
-      (when (y-or-n-p "Pomodoro isn't running. Start it?")
+      (when (y-or-n-p "Pomodoro isn't running. Start it? ")
         (pomodoro))))
 
 (defun pomodoro-status ()
