@@ -35,9 +35,6 @@ To skip forward to the start of the next set do `M-x pomodoro-skip-forward`.
 
 Calling `M-x pomodoro` again will reset it to the first working set.
 
-Calling `M-x pomodoro-toggle-pause` will pause/unpause pomodoro and change
-status in modeline accordingly.
-
 Calling `M-x pomodoro-status` will show you notification about current
 pomodoro state, time left and set number.
 
