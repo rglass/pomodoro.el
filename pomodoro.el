@@ -182,3 +182,8 @@
 (provide 'pomodoro)
 
 ;;; pomodoro.el ends here
+
+;; Local Variables:
+;; lexical-binding: t
+;; coding: us-ascii
+;; End:
