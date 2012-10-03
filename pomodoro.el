@@ -47,7 +47,7 @@
 (defvar pomodoro-minute)
 (defvar pomodoro-set)
 (defvar pomodoro-timer nil)
-(defvar pomodoro-state 'work)
+(defvar pomodoro-state nil)
 
 ;;;###autoload
 (defun pomodoro ()
@@ -83,11 +83,7 @@
 (defun pomodoro-skip-forward ()
   "Skip forward to the start of the next step"
   (interactive)
-  (if (< pomodoro-set pomodoro-set-number)
-      (setq pomodoro-set (1+ pomodoro-set))
-      (setq pomodoro-set 1))
-  (setq pomodoro-minute pomodoro-work-time
-        pomodoro-state 'work)
+  (pomodoro-next-work-period)
   (pomodoro-update-modeline)
   (pomodoro-status))
 
@@ -103,20 +99,20 @@
         (pomodoro))))
 
 (defun pomodoro-status ()
-  "Display a status message via libnotify"
+  "Display a pomodoro status message via libnotify."
   (interactive)
-  (let ((notification-body
-         (if (pomodoro-running-p)
-             (concat (format "%d set\n" pomodoro-set)
-                     (format "%d minute(s) left" pomodoro-minute))
-             "")))
+  (let ((notification-body ""))
+    (when (pomodoro-running-p)
+      (setq notification-body
+            (concat (format "%d set\n" pomodoro-set)
+                    (format "%d minute(s) left" pomodoro-minute))))
     (notifications-notify
      :title    (pomodoro-current-state)
      :body     notification-body
      :app-icon pomodoro-icon)))
 
 (defun pomodoro-current-state ()
-  "Current pomodoro state as string"
+  "Current pomodoro state as string."
   (cond
     ((not (pomodoro-running-p))
      "Not running")
@@ -127,26 +123,32 @@
     ((eq pomodoro-state 'long-break )
      "Long break")))
 
+(defun pomodoro-next-work-period ()
+  (let ((new-set (if (eq pomodoro-set pomodoro-set-number)
+                     1
+                     (1+ pomodoro-set))))
+    (setq pomodoro-set new-set
+          pomodoro-state 'work
+          pomodoro-minute pomodoro-work-time)))
+
+(defun pomodoro-next-break ()
+  (if (eq pomodoro-set pomodoro-set-number)
+      (setq pomodoro-minute pomodoro-long-break
+            pomodoro-state 'long-break)
+      (setq pomodoro-minute pomodoro-short-break
+            pomodoro-state 'short-break)))
+
+(defun pomodoro-break-p ()
+  "Return non-nil if pomodoro is currently on break, nil otherwise."
+  (memq pomodoro-state '(short-break long-break)))
+
 (defun pomodoro-timer ()
-  "Function called every minute.
-It takes care of updating the modeline"
+  "Function called every minute. It takes care of updating the modeline."
   (setq pomodoro-minute (1- pomodoro-minute))
   (when (<= pomodoro-minute 0)
-    (cond
-      ((eq pomodoro-state 'long-break)
-       (setq pomodoro-state 'work
-             pomodoro-set 1
-             pomodoro-minute pomodoro-work-time))
-      ((eq pomodoro-state 'short-break)
-       (setq pomodoro-state 'work
-             pomodoro-minute pomodoro-work-time
-             pomodoro-set (1+ pomodoro-set)))
-      ((eq pomodoro-state 'work)
-       (if (>= pomodoro-set pomodoro-set-number)
-           (setq pomodoro-minute pomodoro-long-break
-                 pomodoro-state 'long-break)
-           (setq pomodoro-minute pomodoro-short-break
-                 pomodoro-state 'short-break))))
+    (if (pomodoro-break-p)
+        (pomodoro-next-work-period)
+        (pomodoro-next-break))
     (pomodoro-status))
   (pomodoro-update-modeline))
 
