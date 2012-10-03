@@ -43,6 +43,12 @@
 (defvar pomodoro-icon notifications-application-icon
   "Icon used for notification")
 
+(defvar pomodoro-break-hook nil
+  "Hooks run when entering short or long break.")
+
+(defvar pomodoro-work-hook nil
+  "Hooks run when entering work state.")
+
 (defvar pomodoro-display-string "")
 (defvar pomodoro-minute)
 (defvar pomodoro-set)
@@ -132,14 +138,16 @@
                      (1+ pomodoro-set))))
     (setq pomodoro-set new-set
           pomodoro-state 'work
-          pomodoro-minute pomodoro-work-time)))
+          pomodoro-minute pomodoro-work-time))
+  (run-hooks 'pomodoro-work-hook))
 
 (defun pomodoro-next-break ()
   (if (eq pomodoro-set pomodoro-set-number)
       (setq pomodoro-minute pomodoro-long-break
             pomodoro-state 'long-break)
       (setq pomodoro-minute pomodoro-short-break
-            pomodoro-state 'short-break)))
+            pomodoro-state 'short-break))
+  (run-hooks 'pomodoro-break-hook))
 
 (defun pomodoro-break-p ()
   "Return non-nil if pomodoro is currently on break, nil otherwise."
