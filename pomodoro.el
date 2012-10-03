@@ -54,19 +54,22 @@
   "Start pomodoro, also rewind pomodoro to first set."
   (interactive)
   (if (pomodoro-running-p)
-      (when (y-or-n-p "Pomodoro is alredy running. Restart it?")
+      (when (y-or-n-p "Pomodoro is alredy running. Restart it? ")
         (cancel-timer pomodoro-timer)
         (pomodoro))
-      (or global-mode-string (setq global-mode-string '("")))
-      (or (memq 'pomodoro-display-string global-mode-string)
-          (setq global-mode-string
-                (append global-mode-string '(pomodoro-display-string))))
-      (setq pomodoro-minute pomodoro-work-time
-            pomodoro-set 1
-            pomodoro-state 'work
-            pomodoro-timer (run-at-time t 60 'pomodoro-timer))
+      (pomodoro-start)
       (pomodoro-update-modeline)
       (pomodoro-status)))
+
+(defun pomodoro-start ()
+  (unless global-mode-string
+      (setq global-mode-string '("")))
+  (unless (memq 'pomodoro-display-string global-mode-string)
+      (add-to-list 'global-mode-string pomodoro-display-string 'append))
+  (setq pomodoro-minute pomodoro-work-time
+        pomodoro-set 1
+        pomodoro-state 'work
+        pomodoro-timer (run-at-time t 60 'pomodoro-timer)))
 
 (defun pomodoro-rewind ()
   "Rewind pomodoro, keep current set"
