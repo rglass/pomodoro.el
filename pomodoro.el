@@ -102,7 +102,8 @@
   (if (pomodoro-running-p)
       (progn
         (cancel-timer pomodoro-timer)
-        (delq 'pomodoro-display-string global-mode-string)
+        (setq global-mode-string
+              (delq 'pomodoro-display-string global-mode-string))
         (pomodoro-status))
       (when (y-or-n-p "Pomodoro isn't running. Start it? ")
         (pomodoro))))
