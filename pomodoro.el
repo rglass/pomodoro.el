@@ -71,7 +71,7 @@
   (unless global-mode-string
       (setq global-mode-string '("")))
   (unless (memq 'pomodoro-display-string global-mode-string)
-      (add-to-list 'global-mode-string pomodoro-display-string 'append))
+      (add-to-list 'global-mode-string 'pomodoro-display-string 'append))
   (setq pomodoro-minute pomodoro-work-time
         pomodoro-set 1
         pomodoro-state 'work
