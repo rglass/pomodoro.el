@@ -2,10 +2,6 @@
 
 The technique is described at http://www.pomodorotechnique.com
 
-[Original code](http://kanis.fr/hg/lisp/ivan/pomodoro.el) written by Ivan
-Kanis. This fork adds some features and uses libnotify for notifications
-instead of popup emacs buffer.
-
 ## Usage ##
 
 to start the pomodoro you issue `M-x pomodoro`.
@@ -25,6 +21,8 @@ At the end of the 4th set you will get a long break.
 
 The modeline will display `LB` instead of `B`.
 
+Calling `M-x pomodoro` again will reset it to the first working set.
+
 When you don't need the pomodoro anymore you do `M-x pomodoro-stop`. Pomodoro
 will finish it's work.
 
@@ -32,8 +30,6 @@ If you got interrupted and you want to rewind the pomodoro on the current set
 just do `M-x pomodoro-rewind`.
 
 To skip forward to the start of the next set do `M-x pomodoro-skip-forward`.
-
-Calling `M-x pomodoro` again will reset it to the first working set.
 
 Calling `M-x pomodoro-status` will show you notification about current
 pomodoro state, time left and set number.
@@ -69,11 +65,11 @@ recommended), use this recipe:
 
 You can customize this mode with the following variables:
 
-`pomodoro-work-time` - number of minutes of working
+`pomodoro-work-duration` - number of minutes of working
 
-`pomodoro-short-break` - number of minutes of a short break
+`pomodoro-short-break-duration` - number of minutes of a short break
 
-`pomodoro-long-break` - number of minutes of a long break
+`pomodoro-long-break-duration` - number of minutes of a long break
 
 `pomodoro-set-number` - number of sets until a long break
 
