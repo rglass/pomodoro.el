@@ -36,6 +36,9 @@
 (defvar pomodoro-state-change-hook '(pomodoro-status))
 (defvar pomodoro-update-hook '(pomodoro-update-modeline))
 
+(defvar pomodoro-work-start-hook nil "Hooks run on beginning of each work set.")
+(defvar pomodoro-pause-start-hook nil "Hooks run on beginning of each pause.")
+
 (defvar pomodoro-display-string "")
 (defvar pomodoro-current-set nil "Current set number.")
 (defvar pomodoro-minutes-left nil "Minutes left to state change.")
@@ -95,13 +98,13 @@
             pomodoro-current-state 'long-break)
       (setq pomodoro-minutes-left pomodoro-short-break-duration
             pomodoro-current-state 'short-break))
-  (run-hooks 'pomodoro-state-change-hook))
+  (run-hooks 'pomodoro-state-change-hook 'pomodoro-pause-start-hook))
 
 (defun pomodoro-start-work ()
   "Start work."
   (setq pomodoro-minutes-left pomodoro-work-duration
         pomodoro-current-state 'work)
-  (run-hooks 'pomodoro-state-change-hook))
+  (run-hooks 'pomodoro-state-change-hook 'pomodo-work-start-hook))
 
 (defun pomodoro-next-set ()
   "Move on to the next set, start from the beginning if current set is the last in the cycle."
