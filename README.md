@@ -43,7 +43,7 @@ For status change notifications working you need:
 * **notifications.el** (included in GNU Emacs since 24.1)
 
 To activate pomodoro.el simply put it in your load path. For example if you
-put the file is in the directory ~/tmp you need to do the following :
+put the file is in the directory ~/tmp you need to do the following:
 
 ``` lisp
 (add-to-list 'load-path "~/tmp")
@@ -65,11 +65,11 @@ recommended), use this recipe:
 
 You can customize this mode with the following variables:
 
-`pomodoro-work-duration` - number of minutes of working
+`pomodoro-work-duration` - duration (in minutes) of work
 
-`pomodoro-short-break-duration` - number of minutes of a short break
+`pomodoro-short-break-duration` - duration (in minutes) of short break
 
-`pomodoro-long-break-duration` - number of minutes of a long break
+`pomodoro-long-break-duration` - duration (in minutes) of long break
 
 `pomodoro-set-number` - number of sets until a long break
 
