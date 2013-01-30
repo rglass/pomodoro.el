@@ -1,7 +1,7 @@
 ;;; pomodoro.el --- Pomodoro Technique implementation for emacs
 
 ;; Author: Victor Deryagin
-;; Copyright (C) 2011-2012 Victor Deryagin <vderyagin@gmail.com>
+;; Copyright (C) 2011-2013 Victor Deryagin <vderyagin@gmail.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
