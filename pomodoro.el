@@ -53,9 +53,9 @@
       (when (y-or-n-p "Pomodoro is already running.  Restart it? ")
         (pomodoro--stop)
         (pomodoro))
-      (setq pomodoro-minutes-left 0
-            pomodoro-current-state 'long-break
-            pomodoro-timer (run-at-time nil 60 'pomodoro-update))))
+    (setq pomodoro-minutes-left 0
+          pomodoro-current-state 'long-break
+          pomodoro-timer (run-at-time nil 60 'pomodoro-update))))
 
 (defun pomodoro-rewind ()
   "Rewind pomodoro timer to the beginning of the current set."
@@ -85,7 +85,7 @@
       (progn
         (pomodoro--stop)
         (run-hooks 'pomodoro-update-hook 'pomodoro-state-change-hook))
-      (message "Pomodoro is not running.")))
+    (message "Pomodoro is not running.")))
 
 (defun pomodoro-last-set-p ()
   "Return TRUE if current work set is the last in cycle, FALSE otherwise."
@@ -96,8 +96,8 @@
   (if (pomodoro-last-set-p)
       (setq pomodoro-minutes-left pomodoro-long-break-duration
             pomodoro-current-state 'long-break)
-      (setq pomodoro-minutes-left pomodoro-short-break-duration
-            pomodoro-current-state 'short-break))
+    (setq pomodoro-minutes-left pomodoro-short-break-duration
+          pomodoro-current-state 'short-break))
   (run-hooks 'pomodoro-state-change-hook 'pomodoro-pause-start-hook))
 
 (defun pomodoro-start-work ()
@@ -111,7 +111,7 @@
   (setq pomodoro-current-set
         (if pomodoro-current-set
             (% (1+ pomodoro-current-set) pomodoro-set-number)
-            0)))
+          0)))
 
 (defun pomodoro-update ()
   "Update timer status, transition between states if needed.
@@ -119,9 +119,9 @@ Called every minute by `pomodoro-timer'."
   (when (= pomodoro-minutes-left 0)
     (if (eq pomodoro-current-state 'work)
         (pomodoro-start-break)
-        (progn
-          (pomodoro-next-set)
-          (pomodoro-start-work))))
+      (progn
+        (pomodoro-next-set)
+        (pomodoro-start-work))))
   (run-hooks 'pomodoro-update-hook)
   (setq pomodoro-minutes-left (1- pomodoro-minutes-left)))
 
@@ -147,14 +147,14 @@ Called every minute by `pomodoro-timer'."
 (defun pomodoro-current-state ()
   "Current pomodoro state as string."
   (cond
-    ((eq pomodoro-current-state 'work)
-     "Work")
-    ((eq pomodoro-current-state 'short-break)
-     "Short break")
-    ((eq pomodoro-current-state 'long-break )
-     "Long break")
-    (t
-     "Not running")))
+   ((eq pomodoro-current-state 'work)
+    "Work")
+   ((eq pomodoro-current-state 'short-break)
+    "Short break")
+   ((eq pomodoro-current-state 'long-break )
+    "Long break")
+   (t
+    "Not running")))
 
 (defun pomodoro-update-modeline ()
   "Update the modeline."
@@ -163,24 +163,24 @@ Called every minute by `pomodoro-timer'."
         (setq pomodoro-display-string (pomodoro-display-string))
         (unless global-mode-string (setq global-mode-string '("")))
         (add-to-list 'global-mode-string 'pomodoro-display-string 'append))
-      (setq global-mode-string
-            (delq 'pomodoro-display-string global-mode-string)))
+    (setq global-mode-string
+          (delq 'pomodoro-display-string global-mode-string)))
   (force-mode-line-update))
 
 
 (defun pomodoro-display-string ()
   "Return modeline display string for current status of pomodoro timer."
   (cond
-    ((eq pomodoro-current-state 'work)
-     (format "W%d-%d"
-             (1+ pomodoro-current-set)
-             pomodoro-minutes-left))
-    ((eq pomodoro-current-state 'short-break)
-     (format "B%d-%d"
-             (1+ pomodoro-current-set)
-             pomodoro-minutes-left))
-    ((eq pomodoro-current-state 'long-break)
-     (format "LB-%d" pomodoro-minutes-left))))
+   ((eq pomodoro-current-state 'work)
+    (format "W%d-%d"
+            (1+ pomodoro-current-set)
+            pomodoro-minutes-left))
+   ((eq pomodoro-current-state 'short-break)
+    (format "B%d-%d"
+            (1+ pomodoro-current-set)
+            pomodoro-minutes-left))
+   ((eq pomodoro-current-state 'long-break)
+    (format "LB-%d" pomodoro-minutes-left))))
 
 (provide 'pomodoro)
 
