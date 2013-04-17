@@ -1,4 +1,4 @@
-;;; pomodoro.el --- Pomodoro Technique implementation for emacs
+;;; pomodoro.el --- Pomodoro Technique implementation for emacs -*- lexical-binding: t -*-
 
 ;; Author: Victor Deryagin
 ;; Copyright (C) 2011-2013 Victor Deryagin <vderyagin@gmail.com>
@@ -185,8 +185,3 @@ Called every minute by `pomodoro-timer'."
 (provide 'pomodoro)
 
 ;;; pomodoro.el ends here
-
-;; Local Variables:
-;; lexical-binding: t
-;; coding: us-ascii
-;; End:
