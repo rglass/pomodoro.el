@@ -88,7 +88,7 @@
     (message "Pomodoro is not running.")))
 
 (defun pomodoro-last-set-p ()
-  "Return TRUE if current work set is the last in cycle, FALSE otherwise."
+  "Return t if current work set is the last in cycle, nil otherwise."
   (= pomodoro-current-set (1- pomodoro-set-number)))
 
 (defun pomodoro-start-break ()
