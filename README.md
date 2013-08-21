@@ -38,9 +38,8 @@ pomodoro state, time left and set number.
 
 For status change notifications working you need:
 
-* Libnotify installed
-* D-Bus session running
-* **notifications.el** (included in GNU Emacs since 24.1)
+* Mac OS X 10.8
+* https://github.com/alloy/terminal-notifier
 
 To activate pomodoro.el simply put it in your load path. For example if you
 put the file is in the directory ~/tmp you need to do the following:
