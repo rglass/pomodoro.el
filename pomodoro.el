@@ -25,13 +25,12 @@
 
 ;;; Code:
 
-(require 'notifications)
+(require 'terminal-notifier)
 
 (defvar pomodoro-work-duration 25 "Time in minutes of work.")
 (defvar pomodoro-short-break-duration 5 "Time in minutes of short break.")
 (defvar pomodoro-long-break-duration 15 "Time in minutes of long break.")
 (defvar pomodoro-set-number 4 "Number of sets until a long break.")
-(defvar pomodoro-icon notifications-application-icon "Icon used for notification.")
 
 (defvar pomodoro-state-change-hook '(pomodoro-status))
 (defvar pomodoro-update-hook '(pomodoro-update-modeline))
@@ -85,7 +84,7 @@
       (progn
         (pomodoro--stop)
         (run-hooks 'pomodoro-update-hook 'pomodoro-state-change-hook))
-    (message "Pomodoro is not running.")))
+    (tn-notify "Pomodoro is not running.")))
 
 (defun pomodoro-last-set-p ()
   "Return t if current work set is the last in cycle, nil otherwise."
@@ -138,10 +137,9 @@ Called every minute by `pomodoro-timer'."
             (concat
              (format "%d set\n" (1+ pomodoro-current-set))
              (format "%d minute(s) left" pomodoro-minutes-left))))
-    (notifications-notify
-     :title    (pomodoro-current-state)
-     :body     notification-body
-     :app-icon pomodoro-icon)))
+    (tn-notify
+     notification-body
+     (pomodoro-current-state))))
 
 
 (defun pomodoro-current-state ()
